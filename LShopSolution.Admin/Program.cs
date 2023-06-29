@@ -12,6 +12,7 @@ builder.Services.AddControllersWithViews()
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddHttpClient();
 builder.Services.AddTransient<IUserApiClient, UserApiClient>();
+builder.Services.AddTransient<IRoleApiClient, RoleApiClient>();
 //builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
 {

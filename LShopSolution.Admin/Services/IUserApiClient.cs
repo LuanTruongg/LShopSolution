@@ -11,5 +11,6 @@ namespace LShopSolution.Admin.Services
         Task<ApiResult<bool>> UpdateUser(Guid id, UserUpdateRequest updateRequest);
         Task<ApiResult<UserVM>> GetById(Guid id);
         Task<ApiResult<bool>> Delete(Guid id);
+        Task<ApiResult<bool>> RoleAssignUser(Guid id, RoleAssignRequest request);
     }
 }

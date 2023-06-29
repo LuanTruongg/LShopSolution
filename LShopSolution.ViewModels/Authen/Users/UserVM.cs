@@ -22,5 +22,6 @@ namespace LShopSolution.ViewModels.Authen.Users
         public string Email { get; set; }
         [Display(Name = "Ngày sinh")]
         public DateTime DoB { get; set; }
+        public IList<string> Roles { get; set; }
     }
 }

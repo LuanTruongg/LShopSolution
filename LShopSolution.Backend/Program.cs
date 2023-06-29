@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using LShopSolution.Authen.Roles;
 using LShopSolution.Authen.Users;
 using LShopSolution.Catalog.Products;
 using LShopSolution.Common;
@@ -69,6 +70,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 
 builder.Services.AddTransient<IValidator<LoginRequest>, LoginRequestValidator>();
 builder.Services.AddTransient<IValidator<RegisterRequest>, RegisterRequestValidator>();
+builder.Services.AddTransient<IRoleService, RoleService>();
 //builder.Services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
 
 string issuer = builder.Configuration.GetValue<string>("Tokens:Issuer");
