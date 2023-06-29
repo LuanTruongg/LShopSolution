@@ -152,6 +152,7 @@ namespace LShopSolution.Authen.Users
             {
                 return new ApiErrorResult<UserVM>("User khong ton tai");
             }
+            var roles = await _userManager.GetRolesAsync(user);
             var userVm = new UserVM()
             {
                 Email = user.Email,
@@ -160,6 +161,7 @@ namespace LShopSolution.Authen.Users
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 DoB = user.DoB,
+                Roles = roles
             };
             return new ApiSuccessResult<UserVM>(userVm);
         }
@@ -175,6 +177,34 @@ namespace LShopSolution.Authen.Users
             if (result.Succeeded)
                 return new ApiSuccessResult<bool>();
             return new ApiErrorResult<bool>();
+        }
+
+        public async Task<ApiResult<bool>> RoleAssign(Guid id, RoleAssignRequest request)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            if (user == null)
+            {
+                return new ApiErrorResult<bool>("Tài khoản không tồn tại");
+            }
+            var removedRoles = request.Roles.Where(x => x.Selected == false).Select(x => x.Name).ToList();
+            foreach (var roleName in removedRoles)
+            {
+                if (await _userManager.IsInRoleAsync(user, roleName) == true)
+                {
+                    await _userManager.RemoveFromRoleAsync(user, roleName);
+                }
+            }
+            await _userManager.RemoveFromRolesAsync(user, removedRoles);
+
+            var addedRoles = request.Roles.Where(x => x.Selected).Select(x => x.Name).ToList();
+            foreach (var roleName in addedRoles)
+            {
+                if (await _userManager.IsInRoleAsync(user, roleName) == false)
+                {
+                    await _userManager.AddToRoleAsync(user, roleName);
+                }
+            }
+            return new ApiSuccessResult<bool>();
         }
     }
 }

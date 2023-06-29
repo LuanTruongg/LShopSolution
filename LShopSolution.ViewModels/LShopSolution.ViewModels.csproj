@@ -71,6 +71,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authen\Roles\RoleVM.cs" />
+    <Compile Include="Authen\Users\RoleAssignRequest.cs" />
+    <Compile Include="Authen\Users\SelectItems.cs" />
     <Compile Include="Authen\Users\UserDeleteRequest.cs" />
     <Compile Include="Authen\Users\GetUserPagingRequest.cs" />
     <Compile Include="Authen\Users\LoginRequestValidator.cs" />
